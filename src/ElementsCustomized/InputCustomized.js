@@ -15,7 +15,7 @@ const InputCustomized = ({mt , mb , prefixIcon , value , placeholder , onChangeT
             alignItems:'center' , 
             flexDirection : "row" ,
             borderWidth : bw ? bw : 1 ,
-            borderColor : borderColor ? borderColor : "rgba(102, 110, 110, 0.4)" ,
+            borderColor : borderColor ? borderColor : "rgba(102, 110, 110, 0.3)" ,
             borderRadius : br ? br : 5 ,
             height : h ? h : 42 ,
             backgroundColor : bgColor ? bgColor : "rgba(102, 110, 110, 0.06)" ,

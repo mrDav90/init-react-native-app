@@ -30,7 +30,7 @@ const Signin = ({navigation}) => {
                 <InputCustomized 
                     mt={10} 
                     mb={10} 
-                    prefixIcon={<Ionicons name='mail-outline' color={"gray"} size={18} style={{marginLeft : 5}} />} 
+                    prefixIcon={<Ionicons name='mail' color={currentMode.principalColor} size={18} style={{marginLeft : 5}} />} 
                     placeholder="Email"
                     value={email} onChangeText={(value)=>{setEmail(value);}} 
                     secureTextEntry={false}
@@ -39,7 +39,7 @@ const Signin = ({navigation}) => {
                 <InputCustomized 
                     mt={10} 
                     mb={10} 
-                    prefixIcon={<Ionicons name='lock-closed-outline' color={"gray"} size={18} style={{marginLeft : 5}} />} 
+                    prefixIcon={<Ionicons name='lock-closed' color={currentMode.principalColor} size={18} style={{marginLeft : 5}} />} 
                     placeholder="Mot de passe"
                     type={"password"}
                     value={password} onChangeText={(value)=>{setPassword(value);}} 

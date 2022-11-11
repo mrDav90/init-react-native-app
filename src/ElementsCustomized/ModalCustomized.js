@@ -74,7 +74,13 @@ const ModalCustomized = ({isModalCustomizedVisible , setIsModalCustomizedVisible
                                 backgroundColor : currentMode.principalBgColor,
                                 borderTopRightRadius : fullScreen ? 0 : 20 ,
                                 borderTopLeftRadius  : fullScreen ? 0 : 20,
-                                paddingVertical : 0 ,
+                                shadowColor : "gray",
+                                shadowRadius :  8,
+                                shadowOpacity : 0.3 ,
+                                shadowOffset : {
+                                    height : 1 ,
+                                    width : 1
+                                }
                                
                             }}
                         >

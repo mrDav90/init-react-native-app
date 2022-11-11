@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useSelector } from 'react-redux';
-import TextCustomized from '../constants/TextCustomized';
+import TextCustomized from './TextCustomized';
 
 
 const EmptyCustomized = ({text}) => {

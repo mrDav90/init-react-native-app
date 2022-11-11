@@ -1,24 +1,22 @@
-import { Animated, Image, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
-import { icons } from '../actions/utils';
+import { Animated, StyleSheet, Text, View } from 'react-native'
+import React, { useEffect, useRef } from 'react'
 import { colors } from '../utils/colors.utils';
+import { Ionicons } from '@expo/vector-icons';
 
 const MessageCustomized = ({type , message}) => {
 
     const fadeAnim  = useRef(new Animated.Value(0)).current;
 
     const styles = StyleSheet.create({
-        wrapper : {
-            position : "absolute",
-            width : "100%",
-            height : "100%",
-            top : 0,
-        } ,
         container : {
             width: "90%" ,
+            left : 0,
+            right : 0,
+            position:"absolute",
             zIndex : 9999,
-            paddingVertical : 15 ,
+            paddingVertical : 10 ,
             borderRadius : 10 ,
+            height : "transparent" ,
             display  : "flex",
             flexDirection : "row",
             justifyContent:"center",
@@ -32,12 +30,6 @@ const MessageCustomized = ({type , message}) => {
                 height : 5
             },
             backgroundColor : (type==="success" && colors.successColor) || (type==="error"  && colors.errorColor) || (type==="warning" && colors.warningColor)
-        } ,
-        icon : {
-            width : 20 ,
-            height : 20 ,
-            resizeMode: "cover",
-            tintColor : "white"
         } ,
         message : {
             color : "white",
@@ -63,41 +55,41 @@ const MessageCustomized = ({type , message}) => {
        
     },[])
     return (
-        <View style={styles.wrapper} >
-
-            <Animated.View
+        <Animated.View
                 
-                style={
-                    [
-                        styles.container ,
-                        {
-                            transform : [{
-                                translateY : 10 ,
-                                translateX : 15
-                            }]
-                        },
+            style={
+                [
+                    styles.container ,
+                    {
+                        transform : [
+                            {translateY : 10},
+                            {translateX : 15}
                         
-                        {
-                            opacity : fadeAnim
-                        }
-                    ]
-                }
-            >
-                    
-                    <Image
-                        source={
-                            (type === "success" && icons.successIcon) ||
-                            (type === "error" && icons.errorIcon) ||
-                            (type === "warning" && icons.warningIcon) 
-                        }
-                        style={styles.icon}
+                        ]
+                    }, 
+                    {
+                        opacity : fadeAnim
+                    }
+                ]
+            }
+        >
+    
+                    <Ionicons 
+                            
+                            name={
+                                    (type==="success" && "checkmark-circle-outline") ||
+                                    (type==="error" && "close-circle-outline") ||
+                                    (type==="warning" && "alert-circle-outline") 
+                            }
+
+                            size={24}
+                            color="white"
                     />
-                    <View style={{marginLeft : 10}} >
+                    <View style={{marginLeft : 5}} >
                             <Text style={styles.message} > {message} </Text>
                     </View>
 
-            </Animated.View>
-        </View>
+        </Animated.View>
     )
 }
 

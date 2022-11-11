@@ -25,12 +25,13 @@ function ButtonCustomized({text , loading , onPress ,w , h , mv , outline , cont
       onPress={onPress} 
       style={styles.container}
     >
-        {
+        {/* {
             loading ? 
             <ActivityIndicator color={"white"} size={"small"} />
             : 
             <Text style={{color: outline ? colors.appColor : "white"}} > {text} </Text>
-        }   
+        }    */}
+        <Text style={{color: outline ? colors.appColor : "white"}} > {text} </Text>
         {
           content && content
         }

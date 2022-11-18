@@ -1,15 +1,25 @@
 import { ScrollView, StyleSheet, Text, View , Modal , TouchableWithoutFeedback , Animated, TouchableOpacity } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState , useMemo , useCallback } from 'react'
 import { useSelector } from 'react-redux';
 import TextCustomized from './TextCustomized';
 import { colors } from '../utils/colors.utils';
 import { Ionicons } from '@expo/vector-icons';
+import BottomSheet from '@gorhom/bottom-sheet';
 
 
-const ModalCustomized = ({isModalCustomizedVisible , setIsModalCustomizedVisible , content , fullScreen }) => {
+const ModalCustomized = ({isModalCustomizedVisible , setIsModalCustomizedVisible , content , fullScreen , points , enablePanDownToClose }) => {
     const currentMode = useSelector((state)=>state.themeRdx.currentMode);
     //const [animatedValue , setAnimatedValue] = useState(0);
     const animatedValue = useRef(new Animated.Value(0)).current
+
+    const bottomSheetRef = useRef(null);
+    const snapPoints = useMemo(() => points  ? points : ['50%','75%','90%'], []);
+  
+    const handleSheetChanges = useCallback((index) => {
+      if (index === -1) {
+            setIsModalCustomizedVisible(false);
+      }
+    }, []);
 
     useEffect(()=>{
         if (isModalCustomizedVisible) {
@@ -63,11 +73,38 @@ const ModalCustomized = ({isModalCustomizedVisible , setIsModalCustomizedVisible
                             />
                         </TouchableWithoutFeedback>
 
-                        <Animated.View
+                        <BottomSheet
+                            ref={bottomSheetRef}
+                            index={0}
+                            snapPoints={snapPoints}
+                            onChange={handleSheetChanges}
+                            style={{zIndex:9999,}}
+                            enablePanDownToClose={enablePanDownToClose?true:false}
+                            backgroundStyle={{
+                                backgroundColor:currentMode.principalBgColor,
+                                shadowColor:"gray",
+                                shadowOffset: {
+                                    height : 1 ,
+                                    width : 1
+                                } ,
+                                shadowRadius : 5 ,
+                                shadowOpacity : 0.5
+                            }}
+                            handleIndicatorStyle={{backgroundColor: currentMode.principalColor }}
+                            
+                        >
+                            <View style={styles.container}>
+                                {
+                                    content 
+                                }
+                            </View>
+                        </BottomSheet>
+
+                        {/* <Animated.View
                             style={{
                                 position : "absolute",
                                 width : "100%",
-                                height : fullScreen ? "100%" : "80%",
+                                height : fullScreen ? "100%" : "90%",
                                 left : 0 ,
                                 right : 0,
                                 bottom : 0 ,             
@@ -90,7 +127,7 @@ const ModalCustomized = ({isModalCustomizedVisible , setIsModalCustomizedVisible
                                 </TouchableOpacity>
                             </View>
                             {content}
-                        </Animated.View> 
+                        </Animated.View>  */}
 
                 </View>
 

@@ -1,35 +1,25 @@
-import { Button, Pressable, StyleSheet, Text, View } from 'react-native'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import {StyleSheet, View } from 'react-native'
+import React, { useCallback, useMemo, useRef } from 'react'
 import { useSelector } from 'react-redux';
-import Animated from 'react-native-reanimated';
 import BottomSheet from '@gorhom/bottom-sheet';
+import { colors } from '../utils/colors.utils';
 
 
-const BottomSheetCustomized = ({isBottomSheetVisible , setIsBottomSheetVisible , content , points}) => {
+const BottomSheetCustomized = ({content, points}) => {
     const currentMode = useSelector((state)=>state.themeRdx.currentMode);
     
     const bottomSheetRef = useRef(null);
 
     // variables
-    const snapPoints = useMemo(() => points  ? points : ['50%','75%','90%'], []);
+    const snapPoints = useMemo(() => points  ? points : ['50%','75%'], []);
   
     // callbacks
     const handleSheetChanges = useCallback((index) => {
       //console.log('handleSheetChanges', index);
-      if (index === -1) {
-            setIsBottomSheetVisible(false);
-      }
     }, []);
 
     const styles = StyleSheet.create({
-        wrapper : {
-            position: "absolute",
-            width:"100%",
-            height : "100%",
-            backgroundColor:"rgba(0,0,0,0.3)",
-            top:0,
-            left : 0
-        } , 
+    
         container: {
             flex: 1,
             justifyContent: 'center',
@@ -39,29 +29,20 @@ const BottomSheetCustomized = ({isBottomSheetVisible , setIsBottomSheetVisible ,
     })
 
   return (
-
-    isBottomSheetVisible === true &&
-    <View style={styles.wrapper}>
-
-        <Pressable         
-            onPress={()=>{
-                setIsBottomSheetVisible(false);
-            }}
-            style={{
-                width:"100%",
-                height:"100%",
-                position:"absolute" ,
-            }}
-        >
-        </Pressable>
-        
         <BottomSheet
             ref={bottomSheetRef}
-            index={1}
+            index={0}
             snapPoints={snapPoints}
             onChange={handleSheetChanges}
-            style={{zIndex:9999,}}
-            enablePanDownToClose={true}
+            backgroundStyle={{
+                shadowColor : "gray" , 
+                shadowOffset : {height : 1 , width : 1},
+                shadowOpacity : 0.5 ,
+                shadowRadius : 10 ,
+                borderRadius : 20,
+                backgroundColor:currentMode.principalBgColor
+            }}
+            handleIndicatorStyle={{backgroundColor:currentMode.principalColor}}
         >
             <View style={styles.container}>
                 {
@@ -69,8 +50,6 @@ const BottomSheetCustomized = ({isBottomSheetVisible , setIsBottomSheetVisible ,
                 }
             </View>
         </BottomSheet>
-
-    </View>
   )
 }
 
